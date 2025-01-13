@@ -1,6 +1,6 @@
 const gameBoard = document.getElementById("gameBoard");
-// const statusDisplay = document.getElementById("status");
-// const restartButton = document.getElementById("restartButton");
+const statusDisplay = document.getElementById("status");
+const homeButton = document.getElementById("homeButton");
 const modeSelection = document.getElementById("modeSelection");
 const playerVsPlayerButton = document.getElementById("playerVsPlayer");
 const playerVsBotButton = document.getElementById("playerVsBot");
@@ -29,7 +29,7 @@ const winningConditions = [
 
 // Update the game status
 const updateStatus = (message) => {
-  // statusDisplay.textContent = message;
+  statusDisplay.textContent = message;
 };
 
 // Display success popup
@@ -38,10 +38,29 @@ const showSuccessPopup = (message) => {
   successPopup.style.display = "flex";
 };
 
-// Hide success popup
+// Hide success popup and restart the game
 popupCloseButton.addEventListener("click", () => {
   successPopup.style.display = "none";
+  initializeBoard();
+  if (isPlayingWithBot) {
+    difficultySection.style.display = "block";
+    gameBoard.style.display = "none";
+    hideStatus();
+  } else {
+    gameBoard.style.display = "grid";
+    showStatus();
+  }
 });
+
+// Hide status message
+const hideStatus = () => {
+  statusDisplay.style.display = "none";
+};
+
+// Show status message
+const showStatus = () => {
+  statusDisplay.style.display = "block";
+};
 
 // Check if there's a winner
 const checkWinner = () => {
@@ -51,28 +70,12 @@ const checkWinner = () => {
       const winMessage = currentPlayer === "X" ? "You Win!" : isPlayingWithBot ? "Bot Wins!" : `Player ${currentPlayer} Wins!`;
       showSuccessPopup(winMessage);
       isGameActive = false;
-      setTimeout(() => {
-        successPopup.style.display = "none";
-        initializeBoard();
-        if (isPlayingWithBot) {
-          difficultySection.style.display = "block";
-          gameBoard.style.display = "none";
-        }
-      }, 2000);
       return true;
     }
   }
   if (!board.includes("")) {
     showSuccessPopup("It's a Draw!");
     isGameActive = false;
-    setTimeout(() => {
-      successPopup.style.display = "none";
-      initializeBoard();
-      if (isPlayingWithBot) {
-        difficultySection.style.display = "block";
-        gameBoard.style.display = "none";
-      }
-    }, 2000);
     return true;
   }
   return false;
@@ -235,21 +238,22 @@ const handleCellClick = (event) => {
   if (!checkWinner()) {
     if (isPlayingWithBot) {
       currentPlayer = "O";
-      // updateStatus("Bot's turn");
+      updateStatus("Bot's turn");
       setTimeout(botMove, 500);
     } else {
       currentPlayer = currentPlayer === "X" ? "O" : "X";
-      // updateStatus(`Player ${currentPlayer}'s turn`);
+      updateStatus(`Player ${currentPlayer}'s turn`);
     }
   }
 };
 
 // Initialize the game board
 const initializeBoard = () => {
-  gameBoard.innerHTML = "";
+  gameBoard.innerHTML = ""; // Clears only the game cells
   board = ["", "", "", "", "", "", "", "", ""];
   isGameActive = true;
   currentPlayer = "X";
+  showStatus();
   updateStatus("Player X's turn");
 
   for (let i = 0; i < 9; i++) {
@@ -268,12 +272,24 @@ const startGame = (playWithBot) => {
     modeSelection.style.display = "none";
     difficultySection.style.display = "block";
     gameBoard.style.display = "none";
+    hideStatus();
+    // Remove or comment out the following line to prevent status message during difficulty selection
+    // updateStatus("Select Bot Difficulty");
   } else {
     difficultySection.style.display = "none";
     gameBoard.style.display = "grid";
     initializeBoard();
   }
 };
+
+// Home button functionality
+homeButton.addEventListener("click", () => {
+  modeSelection.style.display = "flex";
+  difficultySection.style.display = "none";
+  gameBoard.style.display = "none";
+  hideStatus();
+  updateStatus("Player X's turn");
+});
 
 // Mode selection
 playerVsPlayerButton.addEventListener("click", () => startGame(false));
@@ -299,3 +315,4 @@ hardDifficulty.addEventListener("click", () => {
   gameBoard.style.display = "grid";
   initializeBoard();
 });
+

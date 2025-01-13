@@ -22,9 +22,16 @@
       <button id="hardDifficulty">Hard</button>
     </div>
 
-    <div class="game-board" id="gameBoard" style="display: none;"></div>
-    <!-- Remove the status message -->
-    <!-- <p id="status"></p> -->
+    <!-- Move the status message outside the game board -->
+    <p id="status" style="display: none;">Player X's turn</p>
+
+    <div class="game-board" id="gameBoard" style="display: none;">
+      <!-- ...existing game board cells... -->
+    </div>
+    
+    <!-- Add Home button -->
+    <button id="homeButton">Home</button>
+    
   </div>
 
   <!-- Popup for success message -->
