@@ -1,6 +1,6 @@
 const gameBoard = document.getElementById("gameBoard");
-const statusDisplay = document.getElementById("status");
-const restartButton = document.getElementById("restartButton");
+// const statusDisplay = document.getElementById("status");
+// const restartButton = document.getElementById("restartButton");
 const modeSelection = document.getElementById("modeSelection");
 const playerVsPlayerButton = document.getElementById("playerVsPlayer");
 const playerVsBotButton = document.getElementById("playerVsBot");
@@ -14,6 +14,7 @@ let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let isGameActive = true;
 let isPlayingWithBot = false;
+let botDifficulty = "easy";
 
 const winningConditions = [
   [0, 1, 2],
@@ -28,7 +29,7 @@ const winningConditions = [
 
 // Update the game status
 const updateStatus = (message) => {
-  statusDisplay.textContent = message;
+  // statusDisplay.textContent = message;
 };
 
 // Display success popup
@@ -50,21 +51,35 @@ const checkWinner = () => {
       const winMessage = currentPlayer === "X" ? "You Win!" : isPlayingWithBot ? "Bot Wins!" : `Player ${currentPlayer} Wins!`;
       showSuccessPopup(winMessage);
       isGameActive = false;
+      setTimeout(() => {
+        successPopup.style.display = "none";
+        initializeBoard();
+        if (isPlayingWithBot) {
+          difficultySection.style.display = "block";
+          gameBoard.style.display = "none";
+        }
+      }, 2000);
       return true;
     }
   }
   if (!board.includes("")) {
     showSuccessPopup("It's a Draw!");
     isGameActive = false;
+    setTimeout(() => {
+      successPopup.style.display = "none";
+      initializeBoard();
+      if (isPlayingWithBot) {
+        difficultySection.style.display = "block";
+        gameBoard.style.display = "none";
+      }
+    }, 2000);
     return true;
   }
   return false;
 };
 
 // Bot's move (simple AI)
-const botMove = () => {
-  if (!isGameActive) return;
-
+const easyBotMove = () => {
   const emptyCells = board
     .map((cell, index) => (cell === "" ? index : null))
     .filter((index) => index !== null);
@@ -84,6 +99,129 @@ const botMove = () => {
   }
 };
 
+const mediumBotMove = () => {
+  // Block player win if possible, else random
+  for (let condition of winningConditions) {
+    const [a, b, c] = condition;
+    if (board[a] === "X" && board[b] === "X" && board[c] === "") {
+      board[c] = "O";
+      const botCell = gameBoard.querySelector(`[data-index='${c}']`);
+      botCell.textContent = "O";
+      botCell.classList.add("taken");
+      if (!checkWinner()) {
+        currentPlayer = "X";
+        updateStatus("Player X's turn");
+      }
+      return;
+    }
+    if (board[a] === "X" && board[c] === "X" && board[b] === "") {
+      board[b] = "O";
+      const botCell = gameBoard.querySelector(`[data-index='${b}']`);
+      botCell.textContent = "O";
+      botCell.classList.add("taken");
+      if (!checkWinner()) {
+        currentPlayer = "X";
+        updateStatus("Player X's turn");
+      }
+      return;
+    }
+    if (board[b] === "X" && board[c] === "X" && board[a] === "") {
+      board[a] = "O";
+      const botCell = gameBoard.querySelector(`[data-index='${a}']`);
+      botCell.textContent = "O";
+      botCell.classList.add("taken");
+      if (!checkWinner()) {
+        currentPlayer = "X";
+        updateStatus("Player X's turn");
+      }
+      return;
+    }
+  }
+  // Otherwise, pick random
+  easyBotMove();
+};
+
+const hardBotMove = () => {
+  // Check if a given player has won on a board
+  function checkWinForBoard(boardState, player) {
+    return winningConditions.some(([a, b, c]) => {
+      return boardState[a] === player && boardState[b] === player && boardState[c] === player;
+    });
+  }
+
+  function getEmptyIndices(boardState) {
+    return boardState.reduce((acc, cell, idx) => 
+      cell === "" ? acc.concat(idx) : acc, []
+    );
+  }
+
+  function minimax(newBoard, player) {
+    if (checkWinForBoard(newBoard, "X")) {
+      return { score: -10 };
+    } else if (checkWinForBoard(newBoard, "O")) {
+      return { score: 10 };
+    } else if (!newBoard.includes("")) {
+      return { score: 0 };
+    }
+
+    const emptyIndices = getEmptyIndices(newBoard);
+    const moves = [];
+
+    for (let i = 0; i < emptyIndices.length; i++) {
+      const index = emptyIndices[i];
+      const move = { index };
+      newBoard[index] = player;
+
+      if (player === "O") {
+        move.score = minimax(newBoard, "X").score;
+      } else {
+        move.score = minimax(newBoard, "O").score;
+      }
+      newBoard[index] = "";
+      moves.push(move);
+    }
+
+    let bestMove;
+    if (player === "O") {
+      let bestScore = -Infinity;
+      moves.forEach(m => {
+        if (m.score > bestScore) {
+          bestScore = m.score;
+          bestMove = m;
+        }
+      });
+    } else {
+      let bestScore = Infinity;
+      moves.forEach(m => {
+        if (m.score < bestScore) {
+          bestScore = m.score;
+          bestMove = m;
+        }
+      });
+    }
+    return bestMove;
+  }
+
+  // Execute the minimax move
+  if (!isGameActive) return;
+  const bestMove = minimax([...board], "O");
+  board[bestMove.index] = "O";
+  const botCell = gameBoard.querySelector(`[data-index='${bestMove.index}']`);
+  botCell.textContent = "O";
+  botCell.classList.add("taken");
+  if (!checkWinner()) {
+    currentPlayer = "X";
+    updateStatus("Player X's turn");
+  }
+};
+
+const botMove = () => {
+  if (!isGameActive) return;
+  if (botDifficulty === "easy") easyBotMove();
+  else if (botDifficulty === "medium") mediumBotMove();
+  else hardBotMove();
+};
+
 // Handle cell click
 const handleCellClick = (event) => {
   const cellIndex = event.target.getAttribute("data-index");
@@ -97,11 +235,11 @@ const handleCellClick = (event) => {
   if (!checkWinner()) {
     if (isPlayingWithBot) {
       currentPlayer = "O";
-      updateStatus("Bot's turn");
+      // updateStatus("Bot's turn");
       setTimeout(botMove, 500);
     } else {
       currentPlayer = currentPlayer === "X" ? "O" : "X";
-      updateStatus(`Player ${currentPlayer}'s turn`);
+      // updateStatus(`Player ${currentPlayer}'s turn`);
     }
   }
 };
@@ -126,15 +264,38 @@ const initializeBoard = () => {
 // Start the game with selected mode
 const startGame = (playWithBot) => {
   isPlayingWithBot = playWithBot;
-  modeSelection.style.display = "none";
-  gameBoard.style.display = "grid";
-  restartButton.style.display = "block";
-  initializeBoard();
+  if (playWithBot) {
+    modeSelection.style.display = "none";
+    difficultySection.style.display = "block";
+    gameBoard.style.display = "none";
+  } else {
+    difficultySection.style.display = "none";
+    gameBoard.style.display = "grid";
+    initializeBoard();
+  }
 };
-
-// Restart the game
-restartButton.addEventListener("click", () => startGame(isPlayingWithBot));
 
 // Mode selection
 playerVsPlayerButton.addEventListener("click", () => startGame(false));
 playerVsBotButton.addEventListener("click", () => startGame(true));
+
+easyDifficulty.addEventListener("click", () => {
+  botDifficulty = "easy";
+  difficultySection.style.display = "none";
+  gameBoard.style.display = "grid";
+  initializeBoard();
+});
+
+mediumDifficulty.addEventListener("click", () => {
+  botDifficulty = "medium";
+  difficultySection.style.display = "none";
+  gameBoard.style.display = "grid";
+  initializeBoard();
+});
+
+hardDifficulty.addEventListener("click", () => {
+  botDifficulty = "hard";
+  difficultySection.style.display = "none";
+  gameBoard.style.display = "grid";
+  initializeBoard();
+});
