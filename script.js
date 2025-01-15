@@ -4,6 +4,7 @@ const homeButton = document.getElementById("homeButton");
 const modeSelection = document.getElementById("modeSelection");
 const playerVsPlayerButton = document.getElementById("playerVsPlayer");
 const playerVsBotButton = document.getElementById("playerVsBot");
+const versionDisplay = document.getElementById("versionDisplay");
 
 // Popup elements
 const successPopup = document.getElementById("successPopup");
@@ -265,6 +266,13 @@ const initializeBoard = () => {
   }
 };
 
+// Add function to update version display
+const updateVersionDisplay = (mode, difficulty = '') => {
+  const text = mode === 'bot' ? `Playing against ${difficulty} Bot` : 'Playing with Friend';
+  versionDisplay.textContent = text;
+  versionDisplay.style.display = 'inline-block';
+};
+
 // Start the game with selected mode
 const startGame = (playWithBot) => {
   isPlayingWithBot = playWithBot;
@@ -273,11 +281,11 @@ const startGame = (playWithBot) => {
     difficultySection.style.display = "block";
     gameBoard.style.display = "none";
     hideStatus();
-    // Remove or comment out the following line to prevent status message during difficulty selection
-    // updateStatus("Select Bot Difficulty");
+    versionDisplay.style.display = "none";
   } else {
     difficultySection.style.display = "none";
     gameBoard.style.display = "grid";
+    updateVersionDisplay('friend');
     initializeBoard();
   }
 };
@@ -288,6 +296,7 @@ homeButton.addEventListener("click", () => {
   difficultySection.style.display = "none";
   gameBoard.style.display = "none";
   hideStatus();
+  versionDisplay.style.display = "none";
   updateStatus("Player X's turn");
 });
 
@@ -299,6 +308,7 @@ easyDifficulty.addEventListener("click", () => {
   botDifficulty = "easy";
   difficultySection.style.display = "none";
   gameBoard.style.display = "grid";
+  updateVersionDisplay('bot', 'Easy');
   initializeBoard();
 });
 
@@ -306,6 +316,7 @@ mediumDifficulty.addEventListener("click", () => {
   botDifficulty = "medium";
   difficultySection.style.display = "none";
   gameBoard.style.display = "grid";
+  updateVersionDisplay('bot', 'Medium');
   initializeBoard();
 });
 
@@ -313,6 +324,7 @@ hardDifficulty.addEventListener("click", () => {
   botDifficulty = "hard";
   difficultySection.style.display = "none";
   gameBoard.style.display = "grid";
+  updateVersionDisplay('bot', 'Hard');
   initializeBoard();
 });
 
