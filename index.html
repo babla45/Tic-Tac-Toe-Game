@@ -4,43 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic Tac Toe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="bg-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
   <header class="header">
     <h1>Tic Tac Toe</h1>
+    <p class="header-subtitle">The classic strategy game</p>
   </header>
-  <!-- Add version display -->
-  <p id="versionDisplay" style="display: none;"></p>
+
   <div class="container">
-    <div id="modeSelection" class="menu">
-      <button id="playerVsPlayer">Play with Friend</button>
-      <button id="playerVsBot">Play with Bot</button>
-    </div>
-    <div id="difficultySection" class="menu" style="display:none;">
-      <p>Select Bot Difficulty:</p>
-      <button id="easyDifficulty">Easy</button>
-      <button id="mediumDifficulty">Medium</button>
-      <button id="hardDifficulty">Hard</button>
-    </div>
+    <p id="versionDisplay" class="version-badge" style="display: none;"></p>
 
-    <!-- Move the status message outside the game board -->
-    <p id="status" style="display: none;">Player X's turn</p>
+    <div class="card">
+      <div id="modeSelection" class="menu">
+        <h2 class="menu-title">Choose Game Mode</h2>
+        <button id="playerVsPlayer" class="btn btn-primary">
+          <span class="btn-icon">&#128101;</span> Play with Friend
+        </button>
+        <button id="playerVsBot" class="btn btn-secondary">
+          <span class="btn-icon">&#129302;</span> Play with Bot
+        </button>
+      </div>
 
-    <div class="game-board" id="gameBoard" style="display: none;">
-      <!-- ...existing game board cells... -->
+      <div id="difficultySection" class="menu" style="display:none;">
+        <h2 class="menu-title">Select Difficulty</h2>
+        <button id="easyDifficulty" class="btn btn-easy">
+          <span class="btn-icon">&#127811;</span> Easy
+        </button>
+        <button id="mediumDifficulty" class="btn btn-medium">
+          <span class="btn-icon">&#9889;</span> Medium
+        </button>
+        <button id="hardDifficulty" class="btn btn-hard">
+          <span class="btn-icon">&#128293;</span> Hard
+        </button>
+      </div>
+
+      <div id="turnSelection" class="menu" style="display:none;">
+        <h2 class="menu-title">Who Goes First?</h2>
+        <button id="playerFirst" class="btn btn-player-first">
+          <span class="btn-icon">&#9995;</span> You First
+        </button>
+        <button id="botFirst" class="btn btn-bot-first">
+          <span class="btn-icon">&#129302;</span> Bot First
+        </button>
+      </div>
+
+      <p id="status" class="status-text" style="display: none;">Player X's turn</p>
+
+      <div class="game-board" id="gameBoard" style="display: none;"></div>
+
+      <button id="homeButton" class="btn btn-home">
+        <span class="btn-icon">&#127968;</span> Home
+      </button>
     </div>
-    
-    <!-- Add Home button -->
-    <button id="homeButton">Home</button>
-    
   </div>
 
   <!-- Popup for success message -->
-  <div id="successPopup" class="popup" style="display: none;">
-    <div class="popup-content">
+  <div id="successPopup" class="popup-overlay" style="display: none;">
+    <div class="popup-card">
+      <div class="popup-icon" id="popupIcon">&#127942;</div>
       <h2 id="popupMessage"></h2>
-      <button id="popupCloseButton">Close</button>
+      <button id="popupCloseButton" class="btn btn-popup">Play Again</button>
     </div>
   </div>
 
