@@ -1,0 +1,290 @@
+/* ===== Base Reset ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #e0e0e0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* ===== Animated Background ===== */
+.bg-decoration {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: .12;
+  animation: floatCircle 8s ease-in-out infinite alternate;
+}
+.circle-1 { width: 320px; height: 320px; background: #00d2ff; top: -80px;  left: -80px;  animation-delay: 0s; }
+.circle-2 { width: 220px; height: 220px; background: #ff6b6b; bottom: 60px; right: -60px; animation-delay: 2s; }
+.circle-3 { width: 160px; height: 160px; background: #a855f7; top: 50%;    left: 60%;    animation-delay: 4s; }
+
+@keyframes floatCircle {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -30px) scale(1.12); }
+}
+
+/* ===== Header ===== */
+.header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2.5rem 1rem 0.5rem;
+}
+
+.header h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00d2ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-subtitle {
+  margin-top: .3rem;
+  font-size: .95rem;
+  color: rgba(255, 255, 255, .5);
+}
+
+/* ===== Container & Card ===== */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 540px;
+  padding: 1.5rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, .06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+}
+
+/* ===== Intro ===== */
+.feedback-intro {
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+
+.intro-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: .6rem;
+}
+
+.feedback-intro p {
+  font-size: .9rem;
+  color: rgba(255, 255, 255, .65);
+  line-height: 1.55;
+}
+
+/* ===== Form ===== */
+.form-group {
+  margin-bottom: 1.4rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: .45rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, .75);
+}
+
+.optional {
+  font-weight: 400;
+  font-size: .75rem;
+  color: rgba(255, 255, 255, .35);
+}
+
+.required {
+  color: #ff6b6b;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .07);
+  color: #e0e0e0;
+  font-family: 'Poppins', sans-serif;
+  font-size: .9rem;
+  transition: border-color .3s, box-shadow .3s;
+  outline: none;
+  resize: vertical;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: rgba(0, 210, 255, .5);
+  box-shadow: 0 0 0 3px rgba(0, 210, 255, .12);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, .3);
+}
+
+.char-count {
+  display: block;
+  text-align: right;
+  margin-top: .35rem;
+  font-size: .75rem;
+  color: rgba(255, 255, 255, .35);
+}
+
+/* ===== Category Buttons ===== */
+.type-buttons {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.type-btn {
+  flex: 1;
+  min-width: calc(50% - .5rem);
+  padding: .55rem .5rem;
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .05);
+  color: rgba(255, 255, 255, .65);
+  font-family: 'Poppins', sans-serif;
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.type-btn:hover {
+  background: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .25);
+}
+
+.type-btn.active {
+  background: rgba(0, 210, 255, .15);
+  border-color: rgba(0, 210, 255, .5);
+  color: #00d2ff;
+  box-shadow: 0 0 12px rgba(0, 210, 255, .12);
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  padding: .8rem 1.6rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .3s ease;
+  text-decoration: none;
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+}
+
+.btn-send {
+  width: 100%;
+  background: linear-gradient(135deg, #00d2ff, #7b2ff7);
+  color: #fff;
+  font-size: 1rem;
+  padding: .9rem;
+  box-shadow: 0 4px 20px rgba(0, 210, 255, .25);
+}
+
+.btn-send:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(0, 210, 255, .35);
+}
+
+.btn-send:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, .08);
+  color: rgba(255, 255, 255, .7);
+  border: 1px solid rgba(255, 255, 255, .12);
+  font-size: .82rem;
+  padding: .6rem 1.2rem;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+}
+
+/* ===== Status Message ===== */
+.status-message {
+  display: none;
+  margin-top: 1rem;
+  padding: .8rem 1rem;
+  border-radius: 10px;
+  font-size: .85rem;
+  font-weight: 600;
+  text-align: center;
+  animation: fadeIn .3s ease;
+}
+
+.status-message.success {
+  background: rgba(16, 185, 129, .15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, .3);
+}
+
+.status-message.error {
+  background: rgba(239, 68, 68, .15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, .3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Back Nav ===== */
+.back-nav {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .header h1 { font-size: 1.8rem; }
+  .card { padding: 1.4rem; }
+  .type-btn { min-width: calc(50% - .25rem); font-size: .72rem; }
+}
