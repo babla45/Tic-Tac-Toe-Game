@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="minesweeper.css">
+</head>
+<body>
+  <div class="bg-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
+  <header class="header">
+    <h1>Minesweeper</h1>
+    <p class="header-subtitle">Find all the safe cells</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+
+      <!-- Difficulty Selection -->
+      <div id="difficultyMenu" class="menu">
+        <h2 class="menu-title">Select Difficulty</h2>
+        <button id="beginnerBtn" class="btn btn-easy">
+          <span class="btn-icon">&#127811;</span> Beginner (9×9, 10 mines)
+        </button>
+        <button id="intermediateBtn" class="btn btn-medium">
+          <span class="btn-icon">&#9889;</span> Intermediate (16×16, 40 mines)
+        </button>
+        <button id="expertBtn" class="btn btn-hard">
+          <span class="btn-icon">&#128293;</span> Expert (16×30, 99 mines)
+        </button>
+      </div>
+
+      <!-- Game Info Bar -->
+      <div id="gameInfo" class="game-info" style="display: none;">
+        <div class="info-item">
+          <span class="info-icon">&#128163;</span>
+          <span id="mineCount">0</span>
+        </div>
+        <div class="info-item">
+          <button id="resetBtn" class="btn-face" title="New Game">&#128578;</button>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">&#9201;</span>
+          <span id="timer">000</span>
+        </div>
+      </div>
+
+      <!-- Minesweeper Grid -->
+      <div id="mineGrid" class="mine-grid" style="display: none;"></div>
+
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        <button id="homeButton" class="btn btn-home" style="display: none;">
+          <span class="btn-icon">&#127968;</span> Menu
+        </button>
+        <a href="index.html" class="btn btn-nav">
+          <span class="btn-icon">&#10006;</span> Tic Tac Toe
+        </a>
+        <a href="2048.html" class="btn btn-nav">
+          <span class="btn-icon">&#127922;</span> 2048
+        </a>
+        <a href="rules.html" class="btn btn-nav">
+          <span class="btn-icon">&#128214;</span> How to Play
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result Popup -->
+  <div id="resultPopup" class="popup-overlay" style="display: none;">
+    <div class="popup-card">
+      <div class="popup-icon" id="popupIcon">&#127942;</div>
+      <h2 id="popupMessage"></h2>
+      <p id="popupTime" class="popup-time"></p>
+      <button id="popupCloseButton" class="btn btn-popup">Play Again</button>
+    </div>
+  </div>
+
+  <script src="minesweeper.js"></script>
+</body>
+</html>

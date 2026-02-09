@@ -164,6 +164,37 @@ body {
   letter-spacing: 0.5px;
 }
 
+.menu-divider {
+  width: 80%;
+  max-width: 240px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  margin: 8px 0;
+}
+
+.btn-nav-featured {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.btn-nav-featured:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.btn-rules {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.btn-rules:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.35), rgba(118, 75, 162, 0.35));
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
 /* ===== Buttons ===== */
 .btn {
   display: inline-flex;
@@ -444,6 +475,31 @@ body {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+/* ===== Navigation Buttons ===== */
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.btn-nav {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 200px;
+  font-size: 0.9rem;
+  padding: 10px 18px;
+  text-decoration: none;
+}
+
+.btn-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
 }
 
 /* ===== Responsive ===== */

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2048</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="2048.css">
+</head>
+<body>
+  <div class="bg-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
+  <header class="header">
+    <h1>2048</h1>
+    <p class="header-subtitle">Slide & merge to reach 2048</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+
+      <!-- Score Bar -->
+      <div class="score-bar">
+        <div class="score-box">
+          <span class="score-label">Score</span>
+          <span class="score-value" id="currentScore">0</span>
+        </div>
+        <div class="score-box">
+          <span class="score-label">Best</span>
+          <span class="score-value" id="bestScore">0</span>
+        </div>
+      </div>
+
+      <!-- Game Grid -->
+      <div class="grid-wrapper">
+        <div class="grid-container" id="gridContainer">
+          <!-- 16 cells -->
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+          <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        </div>
+        <div class="tile-container" id="tileContainer"></div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button id="newGameBtn" class="btn btn-new-game">
+          <span class="btn-icon">&#128260;</span> New Game
+        </button>
+      </div>
+
+      <p class="instructions">Use <strong>Arrow Keys</strong> or <strong>Swipe</strong> to move tiles</p>
+
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        <a href="index.html" class="btn btn-nav">
+          <span class="btn-icon">&#10006;</span> Tic Tac Toe
+        </a>
+        <a href="minesweeper.html" class="btn btn-nav">
+          <span class="btn-icon">&#128163;</span> Minesweeper
+        </a>
+        <a href="rules.html" class="btn btn-nav">
+          <span class="btn-icon">&#128214;</span> How to Play
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over Popup -->
+  <div id="gameOverPopup" class="popup-overlay" style="display: none;">
+    <div class="popup-card">
+      <div class="popup-icon" id="popupIcon">&#128557;</div>
+      <h2 id="popupMessage">Game Over!</h2>
+      <p class="popup-score">Score: <span id="popupScore">0</span></p>
+      <button id="popupRetry" class="btn btn-popup">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Win Popup -->
+  <div id="winPopup" class="popup-overlay" style="display: none;">
+    <div class="popup-card">
+      <div class="popup-icon">&#127942;</div>
+      <h2>You reached 2048!</h2>
+      <p class="popup-score">Score: <span id="winScore">0</span></p>
+      <button id="keepPlaying" class="btn btn-popup">Keep Playing</button>
+    </div>
+  </div>
+
+  <script src="2048.js"></script>
+</body>
+</html>

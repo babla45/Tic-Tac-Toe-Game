@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Play - Game Rules</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="rules.css">
+</head>
+<body>
+  <div class="bg-decoration">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+  </div>
+
+  <header class="header">
+    <h1>How to Play</h1>
+    <p class="header-subtitle">Rules &amp; Instructions</p>
+  </header>
+
+  <div class="container">
+
+    <!-- Tab Navigation -->
+    <div class="tab-bar">
+      <button class="tab active" data-tab="tictactoe">
+        <span class="tab-icon">&#10006;</span> Tic Tac Toe
+      </button>
+      <button class="tab" data-tab="minesweeper">
+        <span class="tab-icon">&#128163;</span> Minesweeper
+      </button>
+      <button class="tab" data-tab="game2048">
+        <span class="tab-icon">&#127922;</span> 2048
+      </button>
+    </div>
+
+    <!-- Tic Tac Toe Rules -->
+    <div class="rules-card" id="tictactoe">
+      <div class="rules-header">
+        <span class="rules-emoji">&#10006;&#11093;</span>
+        <h2>Tic Tac Toe</h2>
+        <p class="rules-tagline">The classic 3-in-a-row strategy game</p>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#127919;</span> Objective</h3>
+        <p>Be the first player to get <strong>three of your marks</strong> in a horizontal, vertical, or diagonal row on a 3×3 grid.</p>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128220;</span> Rules</h3>
+        <ol>
+          <li>The game is played on a <strong>3×3 grid</strong>.</li>
+          <li>Two players take turns — one is <strong>X</strong>, the other is <strong>O</strong>.</li>
+          <li>Players alternate placing their mark in an <strong>empty cell</strong>.</li>
+          <li>The first player to get <strong>3 marks in a row</strong> (horizontally, vertically, or diagonally) wins.</li>
+          <li>If all 9 cells are filled and no one has 3 in a row, the game is a <strong>draw</strong>.</li>
+        </ol>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#129302;</span> Game Modes</h3>
+        <div class="mode-cards">
+          <div class="mode-card">
+            <h4>&#128101; Play with Friend</h4>
+            <p>Two players take turns on the same device. Player X goes first.</p>
+          </div>
+          <div class="mode-card">
+            <h4>&#129302; Play with Bot</h4>
+            <p>Play against the computer. Choose from three difficulty levels:</p>
+            <ul>
+              <li><strong>Easy</strong> — Bot plays randomly.</li>
+              <li><strong>Medium</strong> — Bot blocks your winning moves.</li>
+              <li><strong>Hard</strong> — Bot uses optimal strategy (minimax). Nearly impossible to beat!</li>
+            </ul>
+            <p>You can also choose <strong>who goes first</strong> — you or the bot.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128161;</span> Tips &amp; Strategy</h3>
+        <ul class="tips-list">
+          <li>If you go first, <strong>take a corner</strong> — it gives you the most winning opportunities.</li>
+          <li>If your opponent goes first and takes the center, <strong>take a corner</strong>.</li>
+          <li>Always check if you can <strong>win on your next move</strong> before blocking.</li>
+          <li>Watch out for <strong>forks</strong> — positions where you can win in two ways at once.</li>
+        </ul>
+      </div>
+
+      <a href="index.html" class="btn btn-play">
+        <span class="btn-icon">&#9654;</span> Play Tic Tac Toe
+      </a>
+    </div>
+
+    <!-- Minesweeper Rules -->
+    <div class="rules-card hidden" id="minesweeper">
+      <div class="rules-header">
+        <span class="rules-emoji">&#128163;</span>
+        <h2>Minesweeper</h2>
+        <p class="rules-tagline">Carefully uncover cells without hitting a mine</p>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#127919;</span> Objective</h3>
+        <p>Reveal all cells on the grid that do <strong>not</strong> contain mines, without detonating any mine.</p>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128220;</span> Rules</h3>
+        <ol>
+          <li><strong>Left-click</strong> on a cell to reveal it.</li>
+          <li>If the cell contains a <strong>mine</strong>, the game is over — you lose.</li>
+          <li>If the cell is safe, it shows a <strong>number</strong> indicating how many of its 8 neighboring cells contain mines.</li>
+          <li>If a cell has <strong>0 adjacent mines</strong>, all neighboring safe cells are automatically revealed.</li>
+          <li><strong>Right-click</strong> on a cell to place a <strong>flag</strong> 🚩 if you suspect it's a mine.</li>
+          <li>Right-click a flagged cell again to <strong>remove the flag</strong>.</li>
+          <li>Your <strong>first click</strong> is always safe — mines are placed after your first move.</li>
+          <li>Win by revealing <strong>every non-mine cell</strong> on the grid.</li>
+        </ol>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128200;</span> Difficulty Levels</h3>
+        <div class="difficulty-table">
+          <div class="diff-row diff-header">
+            <span>Level</span><span>Grid Size</span><span>Mines</span>
+          </div>
+          <div class="diff-row">
+            <span>&#127811; Beginner</span><span>9 × 9</span><span>10</span>
+          </div>
+          <div class="diff-row">
+            <span>&#9889; Intermediate</span><span>16 × 16</span><span>40</span>
+          </div>
+          <div class="diff-row">
+            <span>&#128293; Expert</span><span>16 × 30</span><span>99</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#127760;</span> Number Guide</h3>
+        <div class="number-guide">
+          <span class="num-badge n1">1</span>
+          <span class="num-badge n2">2</span>
+          <span class="num-badge n3">3</span>
+          <span class="num-badge n4">4</span>
+          <span class="num-badge n5">5</span>
+          <span class="num-badge n6">6</span>
+          <span class="num-badge n7">7</span>
+          <span class="num-badge n8">8</span>
+        </div>
+        <p class="num-desc">Each number tells you how many of the <strong>8 surrounding cells</strong> contain a mine. Use these clues to deduce which cells are safe.</p>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128161;</span> Tips &amp; Strategy</h3>
+        <ul class="tips-list">
+          <li>Start by clicking near the <strong>center</strong> — it tends to open up larger areas.</li>
+          <li>If a number equals the <strong>count of adjacent hidden cells</strong>, all those cells are mines — flag them.</li>
+          <li>If a number's adjacent flags <strong>equal the number</strong>, all remaining hidden neighbors are safe.</li>
+          <li>Use <strong>logical deduction</strong>, not guessing. Compare numbers between adjacent cells.</li>
+          <li>The mine counter at the top shows <strong>total mines minus placed flags</strong>.</li>
+        </ul>
+      </div>
+
+      <a href="minesweeper.html" class="btn btn-play">
+        <span class="btn-icon">&#9654;</span> Play Minesweeper
+      </a>
+    </div>
+
+    <!-- 2048 Rules -->
+    <div class="rules-card hidden" id="game2048">
+      <div class="rules-header">
+        <span class="rules-emoji">&#127922;</span>
+        <h2>2048</h2>
+        <p class="rules-tagline">Slide and merge tiles to reach the 2048 tile</p>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#127919;</span> Objective</h3>
+        <p>Combine tiles with the same number to create a tile with the value <strong>2048</strong>. Keep merging to get the highest score possible!</p>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128220;</span> Rules</h3>
+        <ol>
+          <li>The game is played on a <strong>4×4 grid</strong>.</li>
+          <li>Use <strong>Arrow Keys</strong> (or <strong>swipe</strong> on mobile) to slide all tiles in one direction.</li>
+          <li>When two tiles with the <strong>same number</strong> collide, they <strong>merge into one</strong> tile with double the value.</li>
+          <li>After each move, a new tile (<strong>2</strong> or <strong>4</strong>) appears in a random empty cell.</li>
+          <li>Merged tiles <strong>cannot merge again</strong> in the same move.</li>
+          <li>The game is <strong>won</strong> when you create a <strong>2048 tile</strong> — but you can keep playing!</li>
+          <li>The game is <strong>over</strong> when no more moves are possible (no empty cells and no adjacent matching tiles).</li>
+        </ol>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#127918;</span> Controls</h3>
+        <div class="controls-grid">
+          <div class="control-item">
+            <kbd>&#8593;</kbd>
+            <span>Slide Up</span>
+          </div>
+          <div class="control-item">
+            <kbd>&#8595;</kbd>
+            <span>Slide Down</span>
+          </div>
+          <div class="control-item">
+            <kbd>&#8592;</kbd>
+            <span>Slide Left</span>
+          </div>
+          <div class="control-item">
+            <kbd>&#8594;</kbd>
+            <span>Slide Right</span>
+          </div>
+        </div>
+        <p class="controls-note">On mobile devices, <strong>swipe</strong> in any direction to move tiles.</p>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128202;</span> Scoring</h3>
+        <ul class="tips-list">
+          <li>Your score increases by the <strong>value of each newly merged tile</strong>.</li>
+          <li>Merging two 16s gives you a 32 tile and <strong>+32 points</strong>.</li>
+          <li>Your <strong>best score</strong> is saved locally so you can try to beat it.</li>
+        </ul>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128161;</span> Tips &amp; Strategy</h3>
+        <ul class="tips-list">
+          <li>Pick a <strong>corner strategy</strong> — keep your highest tile in one corner.</li>
+          <li>Try to keep tiles <strong>ordered</strong> from largest to smallest along one edge.</li>
+          <li>Avoid moving in <strong>all 4 directions</strong> constantly — stick to 2-3 directions when possible.</li>
+          <li><strong>Never move your largest tile</strong> out of its corner unless absolutely necessary.</li>
+          <li>Build <strong>chains</strong> — line up tiles so they merge in sequence (e.g., 4 → 8 → 16 → 32).</li>
+          <li>Keep the board as <strong>tidy</strong> as possible — scattered small tiles clog the grid.</li>
+        </ul>
+      </div>
+
+      <div class="rules-section">
+        <h3><span class="section-icon">&#128290;</span> Merge Examples</h3>
+        <div class="merge-examples">
+          <div class="merge-example">
+            <span class="merge-tile t2">2</span>
+            <span class="merge-plus">+</span>
+            <span class="merge-tile t2">2</span>
+            <span class="merge-arrow">→</span>
+            <span class="merge-tile t4">4</span>
+          </div>
+          <div class="merge-example">
+            <span class="merge-tile t16">16</span>
+            <span class="merge-plus">+</span>
+            <span class="merge-tile t16">16</span>
+            <span class="merge-arrow">→</span>
+            <span class="merge-tile t32">32</span>
+          </div>
+          <div class="merge-example">
+            <span class="merge-tile t1024">1024</span>
+            <span class="merge-plus">+</span>
+            <span class="merge-tile t1024">1024</span>
+            <span class="merge-arrow">→</span>
+            <span class="merge-tile t2048">2048</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="2048.html" class="btn btn-play">
+        <span class="btn-icon">&#9654;</span> Play 2048
+      </a>
+    </div>
+
+    <!-- Back to Games -->
+    <div class="back-nav">
+      <a href="index.html" class="btn btn-back">
+        <span class="btn-icon">&#127968;</span> Back to Games
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    const cards = document.querySelectorAll('.rules-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const target = tab.dataset.tab;
+        cards.forEach(card => {
+          card.classList.toggle('hidden', card.id !== target);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
