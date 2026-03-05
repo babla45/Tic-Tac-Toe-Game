@@ -330,6 +330,7 @@ const startGame = (playWithBot) => {
     hideStatus();
     versionDisplay.style.display = "none";
   } else {
+    modeSelection.style.display = "none";
     difficultySection.style.display = "none";
     gameBoard.style.display = "grid";
     updateVersionDisplay('friend');
