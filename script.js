@@ -76,21 +76,67 @@ const showStatus = () => {
   statusDisplay.style.display = "block";
 };
 
+// Draw animated winning line through the three cells
+const drawWinningLine = (condition, callback) => {
+  const cells = gameBoard.querySelectorAll('.cell');
+  const boardRect = gameBoard.getBoundingClientRect();
+
+  const [a, , c] = condition;
+  const cellA = cells[a].getBoundingClientRect();
+  const cellC = cells[c].getBoundingClientRect();
+
+  const startX = cellA.left + cellA.width / 2 - boardRect.left;
+  const startY = cellA.top + cellA.height / 2 - boardRect.top;
+  const endX = cellC.left + cellC.width / 2 - boardRect.left;
+  const endY = cellC.top + cellC.height / 2 - boardRect.top;
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('winning-line-svg');
+  svg.setAttribute('width', boardRect.width);
+  svg.setAttribute('height', boardRect.height);
+
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  line.setAttribute('x1', startX);
+  line.setAttribute('y1', startY);
+  line.setAttribute('x2', endX);
+  line.setAttribute('y2', endY);
+  line.classList.add('winning-line');
+
+  const length = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+  line.style.strokeDasharray = length;
+  line.style.strokeDashoffset = length;
+
+  svg.appendChild(line);
+  gameBoard.appendChild(svg);
+
+  // Highlight winning cells
+  condition.forEach(i => cells[i].classList.add('winner-cell'));
+
+  requestAnimationFrame(() => {
+    line.style.strokeDashoffset = '0';
+  });
+
+  setTimeout(callback, 2200);
+};
+
 // Check if there's a winner
 const checkWinner = () => {
   for (let condition of winningConditions) {
     const [a, b, c] = condition;
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      isGameActive = false;
+
       let winMessage;
       if (isPlayingWithBot) {
-        // In bot mode, player's mark depends on who went first
         const playerMark = playerGoesFirst ? "X" : "O";
         winMessage = currentPlayer === playerMark ? "You Win!" : "Bot Wins!";
       } else {
         winMessage = `Player ${currentPlayer} Wins!`;
       }
-      showSuccessPopup(winMessage);
-      isGameActive = false;
+
+      drawWinningLine(condition, () => {
+        showSuccessPopup(winMessage);
+      });
       return true;
     }
   }
@@ -297,7 +343,7 @@ const handleCellClick = (event) => {
 
 // Initialize the game board
 const initializeBoard = () => {
-  gameBoard.innerHTML = ""; // Clears only the game cells
+  gameBoard.innerHTML = "";
   board = ["", "", "", "", "", "", "", "", ""];
   isGameActive = true;
   currentPlayer = "X";
