@@ -116,7 +116,7 @@ const drawWinningLine = (condition, callback) => {
     line.style.strokeDashoffset = '0';
   });
 
-  setTimeout(callback, 2200);
+  setTimeout(callback, 2000);
 };
 
 // Check if there's a winner
@@ -229,14 +229,14 @@ const hardBotMove = () => {
     );
   }
 
-  function minimax(newBoard, player) {
+  function minimax(newBoard, player, depth) {
     const botMk = playerGoesFirst ? "O" : "X";
     const playerMk = playerGoesFirst ? "X" : "O";
 
     if (checkWinForBoard(newBoard, botMk)) {
-      return { score: 10 };
+      return { score: 10 - depth };
     } else if (checkWinForBoard(newBoard, playerMk)) {
-      return { score: -10 };
+      return { score: -10 + depth };
     } else if (!newBoard.includes("")) {
       return { score: 0 };
     }
@@ -250,9 +250,9 @@ const hardBotMove = () => {
       newBoard[index] = player;
 
       if (player === botMk) {
-        move.score = minimax(newBoard, playerMk).score;
+        move.score = minimax(newBoard, playerMk, depth + 1).score;
       } else {
-        move.score = minimax(newBoard, botMk).score;
+        move.score = minimax(newBoard, botMk, depth + 1).score;
       }
       newBoard[index] = "";
       moves.push(move);
@@ -261,30 +261,20 @@ const hardBotMove = () => {
     let bestMove;
     if (player === botMk) {
       let bestScore = -Infinity;
-      const bestMoves = [];
       moves.forEach(m => {
         if (m.score > bestScore) {
           bestScore = m.score;
-          bestMoves.length = 0;
-          bestMoves.push(m);
-        } else if (m.score === bestScore) {
-          bestMoves.push(m);
+          bestMove = m;
         }
       });
-      bestMove = bestMoves[Math.floor(Math.random() * bestMoves.length)];
     } else {
       let bestScore = Infinity;
-      const bestMoves = [];
       moves.forEach(m => {
         if (m.score < bestScore) {
           bestScore = m.score;
-          bestMoves.length = 0;
-          bestMoves.push(m);
-        } else if (m.score === bestScore) {
-          bestMoves.push(m);
+          bestMove = m;
         }
       });
-      bestMove = bestMoves[Math.floor(Math.random() * bestMoves.length)];
     }
     return bestMove;
   }
@@ -293,7 +283,7 @@ const hardBotMove = () => {
   if (!isGameActive) return;
   const botMark = playerGoesFirst ? "O" : "X";
   const playerMark = playerGoesFirst ? "X" : "O";
-  const bestMove = minimax([...board], botMark);
+  const bestMove = minimax([...board], botMark, 0);
   board[bestMove.index] = botMark;
   const botCell = gameBoard.querySelector(`[data-index='${bestMove.index}']`);
   botCell.textContent = botMark;
