@@ -137,11 +137,13 @@ const checkWinner = () => {
       drawWinningLine(condition, () => {
         showSuccessPopup(winMessage);
       });
+      sendTelegramNotification(`Tic-Tac-Toe: ${winMessage} (Mode: ${isPlayingWithBot ? botDifficulty + ' Bot' : 'PvP'})`);
       return true;
     }
   }
   if (!board.includes("")) {
     showSuccessPopup("It's a Draw!");
+    sendTelegramNotification(`Tic-Tac-Toe: Draw! (Mode: ${isPlayingWithBot ? botDifficulty + ' Bot' : 'PvP'})`);
     isGameActive = false;
     return true;
   }

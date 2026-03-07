@@ -173,6 +173,7 @@
             won = true;
             winScore.textContent = score;
             winPopup.style.display = "flex";
+            sendTelegramNotification(`2048: Player reached 2048! Score: ${score}`);
           }
     }
 
@@ -180,6 +181,7 @@
     if (getEmptyCells().length === 0 && !canMove()) {
       gameOver = true;
       popupScore.textContent = score;
+      sendTelegramNotification(`2048: Game Over! Final score: ${score}`);
       setTimeout(() => { gameOverPopup.style.display = "flex"; }, 300);
     }
   };

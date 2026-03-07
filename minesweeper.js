@@ -218,6 +218,8 @@
     popupMessage.textContent = won ? "You Win!" : "Game Over!";
     popupTime.textContent = `Time: ${seconds} seconds`;
     resultPopup.style.display = "flex";
+    const diff = Object.keys(CONFIGS).find(k => CONFIGS[k] === config);
+    sendTelegramNotification(`Minesweeper (${diff}): ${won ? 'Win' : 'Loss'} in ${seconds}s`);
   };
 
   // ===== Start / Reset =====
